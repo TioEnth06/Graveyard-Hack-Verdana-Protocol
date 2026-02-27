@@ -1,0 +1,320 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* React Bits–inspired design tokens: colors, radius, shadows, spacing */
+:root {
+  /* Background */
+  --bg: #050505;
+  --bg-elevated: #0c0c0c;
+  --bg-card: #111111;
+  /* Border */
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.12);
+  /* Foreground / text */
+  --foreground: #fafafa;
+  --text: #fafafa;
+  --text-muted: #a1a1aa;
+  --text-dim: #71717a;
+  /* Accent */
+  --accent: #22c55e;
+  --accent-hover: #16a34a;
+  --accent-muted: rgba(34, 197, 94, 0.15);
+  --purple: #a855f7;
+  --purple-muted: rgba(168, 85, 247, 0.15);
+  /* Radius (buttons, inputs, cards) */
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-input: 10px;
+  --radius-button: 10px;
+  --radius-card: 16px;
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.25);
+  --shadow: 0 4px 24px -4px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 12px -2px rgba(0,0,0,0.35);
+  --shadow-button: 0 2px 8px -2px rgba(0,0,0,0.3);
+  --shadow-card: 0 4px 24px -4px rgba(0,0,0,0.4);
+  /* Component heights */
+  --btn-height: 2.75rem;
+  --input-height: 2.75rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 600;
+}
+
+@layer components {
+  /* Cards: radius + shadow from tokens */
+  .card {
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-card);
+  }
+  .card-hover {
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .card-hover:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-md);
+  }
+  /* Buttons: padding-based so flex-1 / custom size still work */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-200;
+    background: var(--accent);
+    color: #000;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+  }
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 0 24px rgba(34, 197, 94, 0.35);
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-xl font-semibold border transition-all duration-200;
+    border-color: var(--border-hover);
+    color: var(--foreground);
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+  }
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-muted);
+  }
+  /* Inputs */
+  .input-base {
+    width: 100%;
+    height: var(--input-height);
+    border-radius: var(--radius-input);
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    padding: 0 1rem;
+    color: var(--text);
+    font-size: 0.875rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .input-base::placeholder {
+    color: var(--text-dim);
+  }
+  .input-base:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-muted);
+  }
+  /* Sections: consistent padding + optional heading */
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+  .section-heading {
+    font-family: var(--font-display, 'Space Grotesk', system-ui, sans-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+  @media (min-width: 768px) {
+    .section-heading {
+      font-size: 1.5rem;
+    }
+  }
+  .section-lead {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  /* Layout */
+  .container-narrow {
+    max-width: 64rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-narrow {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  .container-wide {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-wide {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-wide {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+  [id].scroll-margin {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
+
+/* Wallet adapter – Verdana app theme */
+.wallet-adapter-button {
+  font-family: var(--font-display, 'Space Grotesk'), system-ui, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  height: 2.5rem !important;
+  padding: 0 1rem !important;
+  border-radius: var(--radius-xl) !important;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s !important;
+}
+.wallet-adapter-button-trigger {
+  background: var(--accent) !important;
+  color: #000 !important;
+  border: none !important;
+}
+.wallet-adapter-button-trigger:hover {
+  background: var(--accent-hover) !important;
+  color: #000 !important;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+}
+.wallet-adapter-button-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.wallet-adapter-button[disabled] {
+  background: var(--bg-elevated) !important;
+  color: var(--text-dim) !important;
+}
+/* Connected state: pill style */
+.verdana-wallet-wrap .wallet-adapter-button-trigger {
+  background: transparent !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+.verdana-wallet-wrap .wallet-adapter-button-trigger:hover {
+  background: var(--bg-elevated) !important;
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+  box-shadow: none;
+}
+.verdana-wallet-wrap .wallet-adapter-button-start-icon,
+.verdana-wallet-wrap .wallet-adapter-button-start-icon img {
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 0.5rem !important;
+}
+.wallet-adapter-button-end-icon,
+.wallet-adapter-button-start-icon {
+  margin-left: 0.5rem !important;
+  margin-right: 0.5rem !important;
+}
+.wallet-adapter-button-start-icon {
+  margin-left: 0 !important;
+}
+/* Dropdown */
+.wallet-adapter-dropdown-list {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-md) !important;
+  padding: 0.5rem !important;
+  margin-top: 0.5rem !important;
+}
+.wallet-adapter-dropdown-list-item {
+  background: transparent !important;
+  color: var(--text) !important;
+  border-radius: var(--radius) !important;
+  font-size: 0.875rem !important;
+}
+.wallet-adapter-dropdown-list-item:hover {
+  background: var(--bg-elevated) !important;
+  color: var(--accent) !important;
+}
+/* Modal */
+.wallet-adapter-modal-overlay {
+  background: rgba(0, 0, 0, 0.7) !important;
+}
+.wallet-adapter-modal-container {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow) !important;
+}
+.wallet-adapter-modal-title {
+  color: var(--text) !important;
+  font-family: var(--font-display, 'Space Grotesk'), system-ui, sans-serif !important;
+}
+.wallet-adapter-modal-button-close {
+  background: transparent !important;
+  color: var(--text-muted) !important;
+}
+.wallet-adapter-modal-button-close:hover {
+  color: var(--text) !important;
+  background: var(--bg-elevated) !important;
+}
+.wallet-adapter-modal-list .wallet-adapter-button {
+  background: var(--bg-elevated) !important;
+  color: var(--text) !important;
+  border-radius: var(--radius) !important;
+}
+.wallet-adapter-modal-list .wallet-adapter-button:hover {
+  background: var(--accent-muted) !important;
+  color: var(--accent) !important;
+}

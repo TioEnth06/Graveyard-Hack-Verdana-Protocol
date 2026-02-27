@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+target/
+.DS_Store
+
+# Next.js
+app/.next/
+.next/
+
+# Testing
+coverage/
+
+# Production
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.log
+
+# IDL (allow ecosol + ecosol_dao)
+app/idl/*.json
+!app/idl/ecosol.json
+!app/idl/ecosol_dao.json
+
+# Anchor
+.anchor/
+test-ledger/
