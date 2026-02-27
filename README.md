@@ -4,90 +4,95 @@
 
 ---
 
-## Ringkasan
+## Summary
 
-Verdana Protocol adalah marketplace aset hijau (Green Real-World Assets) yang diatur oleh DAO. Bukan “marketplace plus DAO”, melainkan **DAO yang mengatur marketplace**: verifikasi, persetujuan, dan standarisasi aset lingkungan dikelola oleh komunitas melalui governance.
+Verdana Protocol is a Green Real-World Assets (RWA) marketplace governed by a DAO. It is not “a marketplace with a DAO”, but a **DAO that governs the marketplace**: verification, approval, and standardization of environmental assets are managed by the community through governance.
 
-- **Website (utama):** landing, tentang, cara kerja, suppliers, governance, docs, kontak  
-- **App (halaman terpisah):** connect wallet → dashboard, marketplace, portfolio, retirement (burn), sertifikat, governance (proposal, voting, treasury)
+- **Website (marketing):** landing, about, how it works, suppliers, governance, docs, contact  
+- **App (separate section):** connect wallet → dashboard, marketplace, portfolio, retirement (burn), certificates, governance (proposals, voting, treasury)
 
-Tombol **Get started** di website mengarah ke App (`/app`).
+The **Get started** button on the website links to the App (`/app`).
 
 ---
 
-## Struktur project
+## Project structure
 
 ```
 ecosol-dao/
-├── README.md                 # Dokumen ini
-├── app/                      # Aplikasi Next.js (frontend)
+├── README.md                 # This file
+├── app/                      # Next.js application (frontend)
 │   ├── app/                  # App Router
-│   │   ├── layout.tsx        # Root layout (header/footer marketing)
+│   │   ├── layout.tsx        # Root layout (marketing header/footer)
 │   │   ├── page.tsx          # Home (/)
 │   │   ├── about/
 │   │   ├── how-it-works/
 │   │   ├── suppliers/
 │   │   ├── supplier/[id]/
-│   │   ├── docs/             # Dokumentasi (litepaper, technical, faq, esg)
+│   │   ├── docs/             # Documentation (litepaper, technical, FAQ, ESG)
 │   │   ├── governance/
 │   │   ├── contact/
-│   │   ├── app/              # dApp (setelah klik Get started)
-│   │   │   ├── layout.tsx    # Layout app (WalletProvider, nav app)
-│   │   │   ├── page.tsx      # /app (connect / redirect dashboard)
+│   │   ├── app/              # dApp (after clicking Get started)
+│   │   │   ├── layout.tsx    # App layout (WalletProvider, app nav)
+│   │   │   ├── page.tsx      # /app (connect / redirect to dashboard)
 │   │   │   ├── dashboard/
 │   │   │   ├── marketplace/
 │   │   │   ├── asset/[id]/
 │   │   │   ├── portfolio/
+│   │   │   ├── purchase-order/
 │   │   │   ├── certificate/[id]/
 │   │   │   └── governance/   # overview, proposals, proposal/[id], create-proposal, vote, treasury
 │   │   ├── admin/
 │   │   └── burn/
-│   ├── components/           # Komponen React
-│   ├── lib/                  # Utilitas, data mock, Solana/Anchor
+│   ├── components/           # React components
+│   ├── lib/                  # Utilities, mock data, Solana/Anchor
 │   ├── next.config.js
 │   ├── package.json
-│   └── tailwind.config.js
-├── programs/                 # (Opsional) Smart contracts Anchor
-└── docs/                     # Dokumen tambahan (litepaper, technical, faq, esg)
+│   └── tailwind.config.ts
+├── programs/                 # Anchor programs (ecosol, ecosol-dao)
+└── migrations/               # Anchor migrations
 ```
 
 ---
 
-## Cara menjalankan
+## How to run
 
-### Prasyarat
+### Prerequisites
 
 - Node.js 18+
-- npm atau yarn
+- npm or yarn
 
-### Langkah
+### Steps
 
-1. **Instal dependensi**
+1. **Install dependencies**
    ```bash
    cd app
    npm install
    ```
 
-2. **Jalankan development**
+2. **Run development server**
    ```bash
    npm run dev
    ```
-   Buka **http://localhost:3000** (atau port yang ditampilkan).
+   Open **http://localhost:3000** (or the port shown).
 
-3. **Build production**
+3. **Production build**
    ```bash
    npm run build
    npm start
    ```
 
-### Route penting
+### Key routes
 
-| Route        | Keterangan                    |
+| Route        | Description                    |
 |-------------|--------------------------------|
-| `/`         | Home (website)                |
-| `/app`      | Entry dApp (connect → dashboard) |
-| `/docs`     | Dokumentasi                   |
-| `/governance` | Halaman marketing governance |
+| `/`         | Home (website)                 |
+| `/app`      | dApp entry (connect → dashboard) |
+| `/app/dashboard` | Dashboard, portfolio value, quick actions |
+| `/app/marketplace` | Asset listings                |
+| `/app/purchase-order` | Enterprise purchase order form |
+| `/app/governance/overview` | DAO overview, proposals |
+| `/docs`     | Documentation                 |
+| `/governance` | Marketing governance page   |
 
 ---
 
@@ -96,12 +101,18 @@ ecosol-dao/
 - **Next.js 14** (App Router)
 - **React 18**, **TypeScript**
 - **Tailwind CSS**, **Framer Motion**
-- **Solana** (wallet-adapter, web3.js, Anchor untuk program)
+- **Solana** (wallet-adapter, web3.js, Anchor for programs)
 
 ---
 
-## Lisensi & kontribusi
+## Network
 
-MIT. Kontribusi diterima.
+The app is configured for **Solana Devnet**. Set your wallet (Phantom, Solflare, etc.) to Devnet when using the dApp.
 
-Untuk pertanyaan teknis atau akses dokumen lengkap, gunakan halaman [Contact](/contact) di website.
+---
+
+## License & contribution
+
+MIT. Contributions welcome.
+
+For technical questions or full documentation access, use the [Contact](/contact) page on the website.
